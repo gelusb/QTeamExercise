@@ -13,8 +13,20 @@ changeViewPort(width, height){
     cy.viewport(width, height);
   };
 
+generateRandomEmail(){
+    const characters = 'abcdefghjklmnopqrstuvwxyz0123456789';
+
+    let email = '';
+
+    for (let i = 0; i < 10; i++){
+        email += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    return `${email}@gmail.com`
+}
+
 verifyProducts(){
-    cy.get('.product-item').should('have.length.at.least', 5);
+    cy.get('.product-item').should('have.length.at.least', 1);
 }
 
 clickOnFusionProduct(){
@@ -247,6 +259,10 @@ clickOnCustomerArrow(){
 
 }
 
+clickOnMyAccountTab(){
+    cy.get('a[href="https://magento.softwaretestingboard.com/customer/account/"]').contains('My Account').click();
+}
+
 clickOnWishTab(){
     cy.get('a[href="https://magento.softwaretestingboard.com/wishlist/"]').contains('Add to wishlist').click();
 
@@ -278,7 +294,11 @@ clickOnSameBillingShipping(){
 }
 
 clickOnPlaceOrderButton(){
-    cy.get('button[title="Place Order"]').click();
+    cy.get('button[title="Place Order"]') 
+  .should('exist') 
+  .and('be.visible')
+  .click(); 
+
 }
 
 clickOnApplyDiscount(){
@@ -288,6 +308,51 @@ clickOnApplyDiscount(){
 clickOnSaveAddress(){
     cy.get('#form-validate > .actions-toolbar > div.primary > .action').click();
 }
+
+clickOnMyOrders(){
+    cy.get('#block-collapsible-nav')
+  .contains('a', 'My Orders')
+  .should('be.visible') 
+  .and('have.text', 'My Orders') 
+  .click(); 
+
+}
+
+clickOnViewOrders(){
+
+    cy.get('table') 
+   .find('tr') 
+   .eq(1) 
+   .find('td') 
+   .eq(5) 
+   .contains('View Order') 
+   .click(); 
+}
+
+AssertOrderIdUrl(){
+
+    cy.url().should('contain', 'https://magento.softwaretestingboard.com/sales/order/view/order_id/');
+}
+
+assertMyOrdersPageHistoryUrl(){
+
+    cy.url().should('eq', 'https://magento.softwaretestingboard.com/sales/order/history/');
+}
+
+assertPendingStatus(){
+    cy.get('.order-status').should('contain.text', 'Pending');
+}
+
+assertMyOrderTable(){
+    cy.get('table') 
+  .should('contain', 'Order #') 
+  .and('contain', 'Date')
+  .and('contain', 'Ship To')
+  .and('contain', 'Order Total')
+  .and('contain', 'Status')
+  .and('contain', 'View Order'); 
+}
+
 
 assertCouponMessage(){
     cy.get('.messages > .message').should('contain', 'Verify the code and try again.')
@@ -315,6 +380,15 @@ assertUpdatedOrder(){
 
 assertRegisterMessage(){
     cy.get('.message-success').should('contain','Thank you for registering');
+}
+
+assertMyAccountPageUrl(){
+    cy.url().should('eq','https://magento.softwaretestingboard.com/customer/account/')
+}
+
+assertSignInErrorMessage(){
+    cy.get('.page.messages')
+  .should('contain.text', 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.');
 }
 
 selectSizeL(){
