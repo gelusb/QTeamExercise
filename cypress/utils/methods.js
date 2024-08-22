@@ -50,7 +50,7 @@ clickOnTopProduct(){
 }
 
 clickOnWatchProduct(){
-    cy.get('.product-item').last().click();
+    cy.get('.product-item').eq(7).click();
 }
 
 clickOnFitnessProduct(){
@@ -270,7 +270,9 @@ clickOnWishTab(){
 }
 
 clickOnWatches(){
-    cy.get('dd > .items > :nth-child(3) > a').click();
+    cy.get('.item') // Select elements with the class "item"
+  .contains('a', 'Watches')
+  .click();
 }
 
 clickOnFitnessEquipment(){
@@ -424,7 +426,8 @@ clickOnSignIn(){
 }
 
 clickOnGearTab(){
-    cy.get('#ui-id-6 > :nth-child(2)').click();
+    cy.get('#ui-id-6') // Select the element by its ID
+    .click();
 }
 
 insertPassword(password){

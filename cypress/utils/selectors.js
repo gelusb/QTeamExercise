@@ -1,4 +1,4 @@
-export class selectors {
+export class Selectors {
 
     insertShippingEmail(email){
         cy.get('#email_address').type(email);
@@ -7,6 +7,10 @@ export class selectors {
         cy.get('#customer-email-fieldset > .required > .control > #customer-email').type(email)
     }
 
+    insertLoginEmail(email){
+        cy.get('#email').type(email);
+    }
+    
 
 
 
@@ -15,4 +19,4 @@ export class selectors {
 
 }
 
-export const  Selectors = new selectors();
+export const  selectors = new Selectors();
