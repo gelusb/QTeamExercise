@@ -64,7 +64,7 @@ export class CheckoutMethods {
     //Create account
     methods.clickOnCreate();
     //Assert customer url
-    methods.assertCustomerUrl();
+    methods.assertUrl('https://magento.softwaretestingboard.com/customer/account/');
     //assert registration succesfull message
     methods.assertRegisterMessage();
     //Click on Edit shipping address
@@ -94,7 +94,7 @@ export class CheckoutMethods {
         //click Next
         methods.clickNextButton();
         //Assert the payment page url
-        methods.assertPaymentPageUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/checkout/#payment');
         //Select same billing and shipping address
         methods.clickOnSameBillingShipping();
         //click on the Place Order button
@@ -119,7 +119,7 @@ export class CheckoutMethods {
         //Select Gear tab
         methods.clickOnGearTab();
         //Assert Gear page
-        methods.assertGearUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/gear.html');
         //Click on Fitness Equipment
         methods.clickOnBottom();
         //Click On Fitness product

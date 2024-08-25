@@ -7,7 +7,7 @@ export class OrderMethods {
         //Click on the 5th product (Fusion Backpack)
         methods.clickOnProductName('Fusion')
         //Verify the url for the Fusion backpack is correct 
-        methods.assertFusionUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/fusion-backpack.html');
         //Verify the product is in stock
         methods.assertAvailability();
         //Add the product to cart
@@ -26,7 +26,7 @@ export class OrderMethods {
         //Add 3 products to the cart
         methods.clickOnProductName('Fusion Backpack')
         //Verify the url for the Fusion backpack is correct 
-        methods.assertFusionUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/fusion-backpack.html');
         //Assert product availability
         methods.assertAvailability();
         //Add the product to cart
@@ -225,17 +225,17 @@ export class OrderMethods {
         //Select My Account tab
         methods.clickOnMyAccountTab();
         //Assert My account page url
-        methods.assertMyAccountPageUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/customer/account/');
         //Clcik on My orders and assert
         methods.clickOnMyOrders();
         //Assert My orders
-        methods.assertMyOrdersPageHistoryUrl();
+        methods.assertUrl('https://magento.softwaretestingboard.com/sales/order/history/');
         //Click on my orders
         methods.assertMyOrderTable();
         //Click on my first ored to view the order
         methods.clickOnViewOrders();
         //Assert page has Pending message
-        methods.AssertOrderIdUrl();
+        methods.AssertOrderIdUrl('https://magento.softwaretestingboard.com/sales/order/view/order_id/');
     }
 
 

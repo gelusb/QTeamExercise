@@ -13,6 +13,10 @@ visitUrl(Url){
     cy.visit(Url);
 };
 
+assertUrl(url){
+    cy.url().should('eq', url);
+};
+
 generateRandomEmail(){
     const characters = 'abcdefghjklmnopqrstuvwxyz0123456789';
 
@@ -38,13 +42,9 @@ clickOnProductName(productName){
 
 clickOnAddToWishlist(){
     cy.wait(1000)
-    cy.contains('Add to Wish List') // Finds any element that contains the text "Add to Wish List"
-  .should('be.visible') // Ensure the element is visible
-  .click(); 
-}
-
-assertFusionUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/fusion-backpack.html');
+    cy.contains('Add to Wish List') 
+    .should('be.visible') 
+    .click(); 
 }
 
 assertRequiredFieldAddress(){
@@ -72,7 +72,8 @@ clickOnDiscountCode(){
 }
 
 assertCartWishlist(){
-    cy.get('.message-success').should('contain.text', 'Sprite Foam Roller has been added to your Wish List.')
+    cy.get('.message-success').should('be.visible')
+    .and('contain.text', 'Sprite Foam Roller has been added to your Wish List.')
 }
 
 assertMyWishlist(){
@@ -81,19 +82,9 @@ assertMyWishlist(){
     .and('contain.text', 'You have no items in your wish list.');
 }
 
-assertMenUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/men.html');
-}
-
-assertGearUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/gear.html');
-}
-assertWomenUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/women.html');
-}
-
 assertAvailability(){
-    cy.get('.product-info-stock-sku').should('contain', 'In stock');
+    cy.get('.product-info-stock-sku').should('be.visible')
+    .and('contain', 'In stock');
 }
 
 addToCart() {
@@ -114,10 +105,6 @@ clickOnCart(){
     .click();
 }
 
-assertCheckoutUrl(){
-    cy.url().should('contain', 'https://magento.softwaretestingboard.com/checkout');
-}
-
 proceedToCheckout(){
     cy.wait(1000)
     cy.get('.item') 
@@ -127,15 +114,6 @@ proceedToCheckout(){
     .click({force : true}); 
     
 
-}
-
-assertShippingUrl(){
-    cy.url().should('contain', 'https://magento.softwaretestingboard.com/checkout');
-
-}
-
-assertCustomerUrl(){
-    cy.url().should('contain', 'https://magento.softwaretestingboard.com/customer/account/')
 }
 
 insertShippingEmail(email){
@@ -287,12 +265,9 @@ clickOnTops(){
     cy.get('dd > .items > :nth-child(1) > a').click();
 }
 
-assertPaymentPageUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/checkout/#payment');
-}
-
 assertLoginSuccess(){
-    cy.get('.panel.wrapper > .panel').should('contain.text', 'Welcome');
+    cy.get('.panel.wrapper > .panel').shoul('be.visible')
+    .and('contain.text', 'Welcome');
 }
 
 clickOnSameBillingShipping(){
@@ -342,11 +317,6 @@ AssertOrderIdUrl(){
     cy.url().should('contain', 'https://magento.softwaretestingboard.com/sales/order/view/order_id/');
 }
 
-assertMyOrdersPageHistoryUrl(){
-
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/sales/order/history/');
-}
-
 assertPendingStatus(){
     cy.get('.order-status').should('contain.text', 'Pending');
 }
@@ -359,15 +329,12 @@ assertMyOrderTable(){
 
 
 assertCouponMessage(){
-    cy.get('.messages > .message').should('contain', 'Verify the code and try again.')
+    cy.get('.messages > .message').should('be.visible')
+    .and('contain', 'Verify the code and try again.')
 }
 
 assertShippingAddress(){
     cy.get('.box-address-shipping').should('contain', 'Waterfall Street nr. 90');
-}
-
-assertOrderPage(){
-    cy.url().should('eq','https://magento.softwaretestingboard.com/checkout/onepage/success/')
 }
 
 assertOrderId(order){
@@ -386,10 +353,6 @@ assertRegisterMessage(){
     cy.get('.message-success')
     .should('be.visible')
     .and('contain','Thank you for registering');
-}
-
-assertMyAccountPageUrl(){
-    cy.url().should('eq','https://magento.softwaretestingboard.com/customer/account/')
 }
 
 assertSignInErrorMessage(){
