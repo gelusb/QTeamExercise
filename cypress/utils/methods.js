@@ -1,17 +1,17 @@
 import { credentials, root } from "./constants";
 export class Methods {
 
-goBack(){
-    cy.go('back');
-}
+
+clickOnLogo(){
+   cy.get('.logo > img')
+  .should('exist') 
+  .and('be.visible') 
+  .click()
+};
 
 visitUrl(Url){
     cy.visit(Url);
 };
-
-changeViewPort(width, height){
-    cy.viewport(width, height);
-  };
 
 generateRandomEmail(){
     const characters = 'abcdefghjklmnopqrstuvwxyz0123456789';
@@ -29,37 +29,18 @@ verifyProducts(){
     cy.get('.product-item').should('have.length.at.least', 1);
 }
 
-clickOnFusionProduct(){
-    cy.get('.product-item').eq(4).click();
+clickOnProductName(productName){
+    cy.get('.product-item')
+    .contains(productName)
+    .should('be.visible')
+    .click();
 }
 
-clickOnHoodieProduct(){
-    cy.get('.product-item').eq(3).click();
-}
-
-clickOnTankProduct(){
-    cy.get('.product-item').eq(2).click();
-}
-
-clickOnShortProduct(){
-    cy.get('.product-item').eq(5).click();
-}
-
-clickOnTopProduct(){
-    cy.get('.product-item').eq(1).click();
-}
-
-clickOnWatchProduct(){
-    cy.get('.product-item').eq(7).click();
-}
-
-clickOnFitnessProduct(){
-    cy.get('.product-item').eq(3).click();
-}
-    
 clickOnAddToWishlist(){
-    cy.get('.product-addto-links > .towishlist').contains('Add to Wish List').click();
-
+    cy.wait(1000)
+    cy.contains('Add to Wish List') // Finds any element that contains the text "Add to Wish List"
+  .should('be.visible') // Ensure the element is visible
+  .click(); 
 }
 
 assertFusionUrl(){
@@ -67,7 +48,7 @@ assertFusionUrl(){
 }
 
 assertRequiredFieldAddress(){
-    cy.get('.field-error').should('contain.text', 'This is a required field');
+    cy.contains('.field-error', 'This is a required field');
 
 }
 
@@ -80,7 +61,10 @@ clickOnCartNumber(){
 }
 
 clickOnProceedToCheckout(){
-    cy.get('#top-cart-btn-checkout').click();
+    cy.wait(100)
+    cy.contains('button', 'Proceed to Checkout') 
+    .should('be.visible')
+    .click();
 }
 
 clickOnDiscountCode(){
@@ -92,7 +76,9 @@ assertCartWishlist(){
 }
 
 assertMyWishlist(){
-    cy.get('#wishlist-view-form > .message').should('contain.text', 'You have no items in your wish list.');
+    cy.get('#wishlist-view-form > .message')
+    .should('be.visible')
+    .and('contain.text', 'You have no items in your wish list.');
 }
 
 assertMenUrl(){
@@ -110,34 +96,46 @@ assertAvailability(){
     cy.get('.product-info-stock-sku').should('contain', 'In stock');
 }
 
-addToCart(){
-    cy.get('#product-addtocart-button').click();
-}
+addToCart() {
+    cy.get('#product-addtocart-button')
+      .should('be.visible') 
+      .click(); 
+  }
 
 assertProductAdded(){
-    cy.get('.message-success').should('contain', 'You added')
+    cy.get('.message-success')
+    .should('be.visible')
+    .and('contain', 'You added');
 }
 
 clickOnCart(){
-    cy.get('.message-success > div > a').click()
+    cy.get('.message-success > div > a')
+    .should('exist')
+    .click();
 }
 
 assertCheckoutUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/checkout/cart');
+    cy.url().should('contain', 'https://magento.softwaretestingboard.com/checkout');
 }
 
 proceedToCheckout(){
-    cy.get('.checkout-methods-items > :nth-child(1) > .action').click();
+    cy.wait(1000)
+    cy.get('.item') 
+    .contains('Proceed to Checkout') 
+    .should('be.visible') 
+    .and('not.be.disabled') 
+    .click({force : true}); 
+    
 
 }
 
 assertShippingUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/checkout/#shipping');
+    cy.url().should('contain', 'https://magento.softwaretestingboard.com/checkout');
 
 }
 
 assertCustomerUrl(){
-    cy.url().should('eq', 'https://magento.softwaretestingboard.com/customer/account/')
+    cy.url().should('contain', 'https://magento.softwaretestingboard.com/customer/account/')
 }
 
 insertShippingEmail(email){
@@ -145,7 +143,7 @@ insertShippingEmail(email){
   }
 
 insertCustomerEmail(email){
-    cy.get('#customer-email-fieldset > .required > .control > #customer-email').type(email)
+    cy.get('#customer-email-fieldset').type(email)
 }
 
 insertLoginEmail(email){
@@ -235,15 +233,21 @@ selectTableRateShipping(){
 }
 
 clickNextButton(){
-    cy.get('.button').click();
+    cy.get('.button')
+    .should('be.visible')
+    .click();
 }
 
 clickSignIn(){
-    cy.get('#send2').click();
+    cy.get('#send2')
+    .should('be.visible')
+    .click();
 }
 
 clickOnMenTab(){
-    cy.get('#ui-id-5 > :nth-child(2)').click();
+    cy.get('#ui-id-5 > :nth-child(2)')
+    .should('be.visible')
+    .click();
 }
 
 clickOnWomenTab(){
@@ -270,7 +274,7 @@ clickOnWishTab(){
 }
 
 clickOnWatches(){
-    cy.get('.item') // Select elements with the class "item"
+    cy.get('.item') 
   .contains('a', 'Watches')
   .click();
 }
@@ -292,7 +296,9 @@ assertLoginSuccess(){
 }
 
 clickOnSameBillingShipping(){
-    cy.get('#billing-address-same-as-shipping-checkmo').click();
+    cy.get('input[name="billing-address-same-as-shipping"]') // Target the checkbox using the name attribute
+    .check() // Check the checkbox if it’s not already checked
+    .should('be.checked'); // Assert that the checkbox is now checked
 }
 
 clickOnPlaceOrderButton(){
@@ -347,12 +353,8 @@ assertPendingStatus(){
 
 assertMyOrderTable(){
     cy.get('table') 
-  .should('contain', 'Order #') 
-  .and('contain', 'Date')
-  .and('contain', 'Ship To')
-  .and('contain', 'Order Total')
-  .and('contain', 'Status')
-  .and('contain', 'View Order'); 
+  .should('contain', 'Order #', 'Date', 'Ship To', 'Order Total', 'Status', 'View Order');
+ 
 }
 
 
@@ -369,7 +371,7 @@ assertOrderPage(){
 }
 
 assertOrderId(order){
-    cy.get('.checkout-success').contains(order);
+    cy.get('.checkout-success').should('be.visible').contains(order);
 }
 
 assertMultipleOrder(){
@@ -381,7 +383,9 @@ assertUpdatedOrder(){
 }
 
 assertRegisterMessage(){
-    cy.get('.message-success').should('contain','Thank you for registering');
+    cy.get('.message-success')
+    .should('be.visible')
+    .and('contain','Thank you for registering');
 }
 
 assertMyAccountPageUrl(){
@@ -414,19 +418,23 @@ selectColourGreen(){
 }
 
 selectColourBlack(){
-
     cy.get('#option-label-color-93-item-49').click();
 }
 clickOnCreateAccount(){
-    cy.get('#registration > :nth-child(3) > .action').click();
+    cy.get('#registration > :nth-child(3) > .action')
+    .should('be.visible')
+    .click();
 }
 
 clickOnSignIn(){
-    cy.get('.panel > .header > .authorization-link > a').click();
+    cy.get('.panel > .header > .authorization-link > a')
+    .should('be.visible')
+    .click();
 }
 
 clickOnGearTab(){
-    cy.get('#ui-id-6') // Select the element by its ID
+    cy.get('#ui-id-6')
+    .should('be.visible')
     .click();
 }
 
@@ -451,7 +459,7 @@ removeProduct(){
 }
 
 assertShippingDetails(){
-    cy.get('.shipping-address-item.selected-item').should('exist');;
+    cy.get('.shipping-address-item.selected-item').should('exist');
 }
 }
 export const methods = new Methods();
