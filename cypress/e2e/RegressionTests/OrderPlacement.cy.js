@@ -30,7 +30,7 @@ describe('Order Placement regression tests', () => {
 
     it('Register a new user and edit the shipping address', () => {
 
-      methods.clickOnCreateAccount();
+      
       checkoutMethods.fillRegisterInformation();
       methods.clickOnSaveAddress();
       methods.assertShippingAddress();
@@ -72,7 +72,7 @@ describe('Order Placement regression tests', () => {
       methods.assertRequiredFieldAddress();
     });
 
-    it.only('Verify that users can view order history and track their pending orders', () => {
+    it('Verify that users can view order history and track their pending orders', () => {
 
       orderMethods.viewPendingOrders();
       methods.assertPendingStatus();

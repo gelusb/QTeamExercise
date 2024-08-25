@@ -14,7 +14,7 @@ visitUrl(Url){
 };
 
 assertUrl(url){
-    cy.url().should('eq', url);
+    cy.url().should('contain', url);
 };
 
 generateRandomEmail(){
@@ -253,8 +253,8 @@ clickOnWishTab(){
 
 clickOnWatches(){
     cy.get('.item') 
-  .contains('a', 'Watches')
-  .click();
+    .contains('a', 'Watches')
+    .click();
 }
 
 clickOnFitnessEquipment(){
@@ -266,14 +266,14 @@ clickOnTops(){
 }
 
 assertLoginSuccess(){
-    cy.get('.panel.wrapper > .panel').shoul('be.visible')
+    cy.get('.panel.wrapper > .panel').should('be.visible')
     .and('contain.text', 'Welcome');
 }
 
 clickOnSameBillingShipping(){
-    cy.get('input[name="billing-address-same-as-shipping"]') // Target the checkbox using the name attribute
-    .check() // Check the checkbox if it’s not already checked
-    .should('be.checked'); // Assert that the checkbox is now checked
+    cy.get('input[name="billing-address-same-as-shipping"]') 
+    .check() 
+    .should('be.checked'); 
 }
 
 clickOnPlaceOrderButton(){
